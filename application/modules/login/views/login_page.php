@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Admin</title>
+    <title>Login</title>
 
     <!-- Bootstrap core CSS-->
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary w-100" value="Sign In" />
-                        <p>Silakan <a href="<?php echo site_url('helloworld/hello') ?>">register</a> jika belum punya akun.</p>
+                        <p>Silakan <a href="<?php echo site_url('login/register') ?>">register</a> jika belum punya akun.</p>
                     </div>
 
                 </form>

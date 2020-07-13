@@ -19,13 +19,7 @@ class Login extends CI_Controller
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect(site_url('login'));
+        redirect(site_url('/'));
     }
 
-    public function test()
-    {
-        $this->output
-        ->set_content_type('application/json')
-        ->set_output(json_encode(array('foo' => 'bar')));
-    }
 }

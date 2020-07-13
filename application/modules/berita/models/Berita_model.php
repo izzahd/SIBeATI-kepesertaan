@@ -37,8 +37,8 @@ class Berita_model extends CI_Model
         $post = $this->input->post();
         $this->berita_id = uniqid();
         $this->judul = $post["name"];
-		    $this->isi_berita = $post["price"];
-		    $this->tanggal_berita = date('Y-m-d H:i:s');
+		$this->isi_berita = $post["price"];
+		$this->tanggal_berita = date('Y-m-d H:i:s');
         $this->db->insert($this->_table, $this);
     }
 

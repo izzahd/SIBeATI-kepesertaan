@@ -37,16 +37,27 @@ class User_model extends CI_Model
         $post = $this->input->post();
         $this->username = $post["username"];
         $this->password = password_hash($post["password"], PASSWORD_DEFAULT);
-        $this->role = $post["role"] ?? "customer";
+        $this->role = $post["role"] ?? "mahasiswa";
         $this->db->insert($this->_table, $this);
+        return true;
     }
 
     public function update()
     {
         $post = $this->input->post();
-        $this->username = $post["username"];
-        $this->password = $post["password"];
-        $this->db->update($this->_table, $this, array('user_id' => $post['id']));
+
+        $old_password = $this->session->userdata('user_logged')->password;
+        $user_id = $this->session->userdata('user_logged')->user_id;
+        if($old_password){
+            $isPasswordTrue = password_verify($post["oldpassword"], $old_password);
+            if($isPasswordTrue){
+                $password = array('password' => password_hash($post["newpassword"], PASSWORD_DEFAULT));
+                $this->db->where('user_id', $user_id);
+                $this->db->update($this->_table, $password);
+                return true;
+            }
+        }
+        return false;
     }
 
     public function doLogin(){
