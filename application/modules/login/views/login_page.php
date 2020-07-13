@@ -25,14 +25,14 @@
                 <h1 class="h2">Login</h1>
                 <form action="<?= site_url('login') ?>" method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="email" placeholder="Username/NRP" required />
+                        <input type="text" class="form-control" name="username" placeholder="Username/NRP" required />
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" name="password" placeholder="Password" required />
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary w-100" value="Sign In" />
-                        <p>Silakan <a href="<?php echo site_url('admin/register') ?>">register</a> jika belum punya akun.</p>
+                        <p>Silakan <a href="<?php echo site_url('helloworld/hello') ?>">register</a> jika belum punya akun.</p>
                     </div>
 
                 </form>
