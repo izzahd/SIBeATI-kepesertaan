@@ -8,14 +8,19 @@ class Periode extends CI_Controller
     {
         parent::__construct();
         $this->load->model("beasiswa_model");
+        $this->load->model("biodata/biodata_model");
         $this->load->library('form_validation');
-        $this->load->model("login/user_model");
-		if($this->user_model->isNotLogin()) redirect(site_url('login'));
+        $this->load->model("auth/users");
+		if($this->users->isNotLogin()) redirect(site_url('auth'));
     }
 
     public function index()
     {
-        $data["beasiswa"] = $this->beasiswa_model->getAll();
-        $this->load->view("periode/list", $data);
+        $user_id = $this->session->userdata('user_id');
+        $biodata_id = $this->biodata_model->getById($user_id)->biodata_id;
+        $data["user_id"] = $user_id;
+        $data["biodata_id"] = $biodata_id;
+        $data["beasiswa"] = $this->beasiswa_model->getAll($biodata_id);
+        $this->template->load('template', 'periode/list', 'Pengajuan', $data);
     }
 }
