@@ -2,34 +2,33 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kelolaberita extends CI_Controller
+class Pendaftar extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("berita_model");
+        $this->load->model("pendaftar_model");
         $this->load->library('form_validation');
-        $this->load->model("user_model");
-		if($this->user_model->isNotLogin()) redirect(site_url('admin/login'));
+        $this->load->model("auth/users");
+		if($this->users->isNotLogin()) redirect(site_url('auth'));
     }
 
-    public function index()
-    {
-        $data["berita"] = $this->berita_model->getAll();
-        $this->load->view("admin/kelolaberita/list", $data);
-    }
-
-    public function add()
-    {
-        $berita = $this->berita_model;
-        $validation = $this->form_validation;
-        $validation->set_rules($berita->rules());
-
-        if ($validation->run()) {
-            $berita->save();
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
+    public function save_pendaftar($beasiswaid = 0, $biodataid = 0){
+        $this->load->model('pendaftar_model');
+		$result = $this->pendaftar_model->save_pendaftar($beasiswaid, $biodataid);
+        if($result != 0){
+            //pendaftaran berhasil
+            echo "<script>
+            alert('Selamat, pendaftaran sukses');
+            window.location='".site_url('pengajuan/periode')."';
+            </script>";
         }
-
-        $this->load->view("admin/kelolaberita/new_form");
+        else{
+            //pendaftaran gagal
+            echo "<script>
+            alert('Maaf, pendaftaran gagal');
+            window.location='".site_url('pengajuan/periode')."';
+            </script>";
+        }
     }
 }
