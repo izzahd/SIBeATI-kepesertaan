@@ -43,9 +43,22 @@ class Beasiswa_model extends CI_Model
         ];
     }
 
-    public function getAll()
+    public function getAll($id)
     {
-        return $this->db->get($this->_table)->result();
+        $beasiswa = $this->db->get($this->_table)->result_array();
+        $pendaftar = $this->db->get_where("pendaftar", ["biodata_id" => $id])->result_array();
+
+        for ($i = 0; $i < count($beasiswa); $i++){
+            $beasiswa[$i]["status_daftar"] = "0";
+            for ($j = 0; $j < count($pendaftar); $j++){
+                if ($beasiswa[$i]["beasiswa_id"] == $pendaftar[$j]["beasiswa_id"]){
+                    $beasiswa[$i]["status_daftar"] = "1";
+                }
+            }
+        }
+        // convert array to object
+        $result = json_decode(json_encode($beasiswa), FALSE);
+        return $result;
     }
     
     public function getById($id)
@@ -86,5 +99,11 @@ class Beasiswa_model extends CI_Model
     public function delete($id)
     {
         return $this->db->delete($this->_table, array("beasiswa_id" => $id));
-	}
+    }
+    
+    public function getPeriode()
+    {
+        $query = $this->db->get_where('beasiswa',array('status'=>'Dibuka'));
+        return $query;
+    }
 }
