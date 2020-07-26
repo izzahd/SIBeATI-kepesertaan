@@ -40,7 +40,7 @@ class Calon_model extends CI_Model
             </script>";
         }
     }
-    
+
     // get All (tim seleksi)
     public function getAll()
     {
@@ -110,16 +110,4 @@ class Calon_model extends CI_Model
         return $result=$query->row();
     }
 
-    // hitung jumlah vote (tim seleksi)
-    public function numberVote()
-    {
-        $this->db->select('count(calon.calon_id');
-        $this->db->from('calon');
-        $this->db->join('pendaftar', 'pendaftar.pendaftar_id = calon.pendaftar_id'); 
-        $this->db->join('beasiswa', 'beasiswa.beasiswa_id = pendaftar.beasiswa_id');
-        $this->db->where(['beasiswa.status'=>'Dibuka']);
-        $this->db->group_by('calon.user_id');
-        $query = $this->db->get();
-        return $result=$query->result();
-    }
 }
